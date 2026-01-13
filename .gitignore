@@ -1,0 +1,8 @@
+# Arquivo de variáveis de ambiente
+.env
+
+# Ambiente virtual
+.venv/
+
+# Arquivo de build/export
+meu-agente-ia.tar
