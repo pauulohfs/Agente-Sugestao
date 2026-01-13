@@ -3,6 +3,7 @@
 
 # Ambiente virtual
 .venv/
+.__pycache__/
 
 # Arquivo de build/export
 meu-agente-ia.tar
