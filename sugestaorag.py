@@ -13,6 +13,9 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_core.messages import SystemMessage, HumanMessage
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from fastapi.middleware.cors import CORSMiddleware 
+
+
 
 # Configuração de logs
 logging.basicConfig(level=logging.INFO)
@@ -21,8 +24,8 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 
 # --- Configurações ---
-MOODLE_URL = "https://mdev.titasdarobotica.com/webservice/rest/server.php"
-MOODLE_TOKEN = "c994b2d14206cd86ac34953365b24aa6"
+MOODLE_URL = os.getenv("MOODLE_URL")
+MOODLE_TOKEN = os.getenv("MOODLE_TOKEN")
 INDEX_PATH = "faiss_index_leds"
 UPDATE_INTERVAL_SECONDS = 86400
 
@@ -130,6 +133,25 @@ async def ask_rag(data: QueryRequest):
 
     response = llm.invoke(messages)
     return {"message": response.content}
+
+
+
+origins = [
+    "*", 
+
+]
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"], 
+)
+
+
+# --- Fim da Configuração do CORS ---
 
 if __name__ == "__main__":
     import uvicorn
