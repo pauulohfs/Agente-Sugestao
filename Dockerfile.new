@@ -1,0 +1,27 @@
+# Usando uma imagem slim para manter o container leve
+FROM python:3.11-slim
+
+# Evita que o Python gere arquivos .pyc e permite logs em tempo real
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+# Instalando dependências do sistema necessárias para o FAISS e outras libs
+# libgomp1 é essencial para o processamento paralelo do FAISS
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libgomp1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copia e instala as dependências antes do código para aproveitar o cache do Docker
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copia o restante do código do projeto
+COPY . .
+
+# Expõe a porta que o Uvicorn irá rodar
+EXPOSE 8000
+
+# Comando para iniciar a aplicação
+CMD ["uvicorn", "sugestaorag:app", "--host", "0.0.0.0", "--port", "8000"]

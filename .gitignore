@@ -3,7 +3,9 @@
 
 # Ambiente virtual
 .venv/
-.__pycache__/
+faiss_index_leds/
+__pycache__/
+.dockerignore
 
 
 # Arquivo de build/export
