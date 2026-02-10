@@ -3,7 +3,7 @@
 
 # Ambiente virtual
 .venv/
-faiss_index_leds/
+faiss_index_sugestao/
 __pycache__/
 .dockerignore
 

@@ -23,11 +23,11 @@ logger = logging.getLogger(__name__)
 
 load_dotenv()
 
-# --- Configurações ---
+# --- Configurações --- 86400
 MOODLE_URL = os.getenv("MOODLE_URL")
 MOODLE_TOKEN = os.getenv("MOODLE_TOKEN")
-INDEX_PATH = "faiss_index_leds"
-UPDATE_INTERVAL_SECONDS = 86400
+INDEX_PATH = "faiss_index_sugestao"
+UPDATE_INTERVAL_SECONDS = 60
 
 vector_db: Optional[FAISS] = None
 
